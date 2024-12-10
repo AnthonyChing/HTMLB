@@ -171,7 +171,7 @@ def process_team_file(team_path):
     # fill using the closest available data from that same season.
     # Using transform with .bfill() ensures index compatibility
     for col in rolling_columns:
-        df[col] = df.groupby('season')[col].transform(lambda g: g.bfill())
+        df[col] = df.groupby('season')[col].transform(lambda g: g.bfill().ffill())
 
     # Optional: Fill any remaining NaNs with 0.0 or another default value
     # Uncomment the following line if you wish to fill remaining NaNs
