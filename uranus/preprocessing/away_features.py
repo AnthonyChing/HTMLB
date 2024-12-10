@@ -114,18 +114,22 @@ def process_team_file(team_path):
     # -----------------------
     # Compute away_team_rest
     # -----------------------
-    # Initialize 'away_team_rest' with 0.0 for the first game
-    df['away_team_rest'] = 0.0
+
+    # Ensure 'away_team_rest' column exists
+    if 'away_team_rest' not in df.columns:
+        raise KeyError(f"'away_team_rest' column not found in {team_path}")
 
     # Calculate difference in days between current game and previous game
     df['prev_date'] = df['date'].shift(1)
     df['diff_days'] = (df['date'] - df['prev_date']).dt.days
 
-    # For the first game, fill NaN with 0
-    df['diff_days'] = df['diff_days'].fillna(0)
+    # For the first game, fill NaN with 1
+    df['diff_days'] = df['diff_days'].fillna(1)
 
-    # Apply the rule: if diff_days >= 365, set rest to 1.0, else to the actual difference
-    df['away_team_rest'] = df['diff_days'].apply(lambda x: 1.0 if x >= 365 else float(x))
+    # Apply the rule to NaN: if diff_days >= 160, set rest to 1.0, else to the actual difference
+    df['away_team_rest'] = df['away_team_rest'].fillna(
+        df['diff_days'].apply(lambda x: 1.0 if x >= 160 else float(x))
+    )
 
     # Drop temporary columns
     df.drop(columns=['prev_date', 'diff_days'], inplace=True)
@@ -133,8 +137,6 @@ def process_team_file(team_path):
     # -------------------------
     # Compute away_pitcher_rest
     # -------------------------
-    # Initialize 'away_pitcher_rest' with 1.0 for the first appearance
-    df['away_pitcher_rest'] = 1.0
 
     # Ensure 'away_pitcher' column exists
     if 'away_pitcher' not in df.columns:
@@ -144,14 +146,16 @@ def process_team_file(team_path):
     df['prev_pitcher_date'] = df.groupby('away_pitcher')['date'].shift(1)
     df['pitcher_diff_days'] = (df['date'] - df['prev_pitcher_date']).dt.days
 
-    # Fill NaN (first appearance) with 60 to apply the rest rule (x >= 60 set to 1.0)
-    df['pitcher_diff_days'] = df['pitcher_diff_days'].fillna(60)
+    # Fill NaN (first appearance) with 1
+    df['pitcher_diff_days'] = df['pitcher_diff_days'].fillna(1)
 
     # Apply the rule: if pitcher_diff_days >=60, set rest to 1.0, else to the actual difference
     df['away_pitcher_rest'] = df['pitcher_diff_days'].apply(lambda x: 1.0 if x >= 60 else float(x))
 
-    # Drop temporary columns
-    df.drop(columns=['prev_pitcher_date', 'pitcher_diff_days'], inplace=True)
+    # Apply the rule to NaN: if pitcher_diff_days >=60, set rest to 1.0, else to the actual difference
+    df['away_pitcher_rest'] = df['away_pitcher_rest'].fillna(
+        df['pitcher_diff_days'].apply(lambda x: 1.0 if x >= 60 else float(x))
+    )
 
     # -----------------------------------------------
     # Compute Rolling Averages for Specified Columns
@@ -171,7 +175,7 @@ def process_team_file(team_path):
     # fill using the closest available data from that same season.
     # Using transform with .bfill() ensures index compatibility
     for col in rolling_columns:
-        df[col] = df.groupby('season')[col].transform(lambda g: g.bfill().ffill())
+        df[col] = df.groupby('season')[col].transform(lambda g: g.bfill())
 
     # Optional: Fill any remaining NaNs with 0.0 or another default value
     # Uncomment the following line if you wish to fill remaining NaNs
