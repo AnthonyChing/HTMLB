@@ -39,19 +39,19 @@ regressor.compile(optimizer = 'adam', loss = 'mean_squared_error')
 regressor.fit(X_train, y_train, epochs = 100, batch_size = 128)
 
 #保存模型
-from datetime import datetime
-NowDateTime = datetime.now().strftime("%Y-%m-%dT%H_%M_%SZ")
-regressor.save('LSTM_'+NowDateTime+'.h5')
+# from datetime import datetime
+# NowDateTime = datetime.now().strftime("%Y-%m-%dT%H_%M_%SZ")
+regressor.save('LSTM.h5')
 print('Model Saved')
 # %% Predict
-regressor = load_model('LSTM_2024-12-06T16_41_39Z.h5')
+regressor = load_model('LSTM.h5')
 df = pd.read_csv('test.csv')
 df.insert(df.columns.get_loc("home_team_rest"), "home_team_win", -1)
 history = pd.read_csv('train.csv')
 # print(df)
-f = open("re.csv", "w")
-lines = ["id,home_team_win\n"]
-for i in range(2):
+f = open(r"../stage 1/submissions/LSTM.csv", "w")
+f.write("id,home_team_win\n")
+for i in range(len(df)):
     season = df.at[i, 'season']
     home_team_index = df.at[i, 'home_team_index']
     filtered_df = history[(history['season'] == season) & (history['home_team_index'] == home_team_index)]
@@ -70,9 +70,12 @@ for i in range(2):
     X_test = np.reshape(X_test, (X_test.shape[0], X_test.shape[1], X_test.shape[2]))
     
     predicted = regressor.predict(X_test)
-    print(predicted)
-    print(predicted[0][0])
-    lines.append(f"{i},{predicted[0][0]}\n")
-f.writelines(lines)
+    # print(predicted)
+    # print(predicted[0][0])
+    if(predicted[0][0] > 0.5):
+        f.write(f"{i},True\n")
+    else:
+        f.write(f"{i},False\n")
+
 f.close()
 # %%
