@@ -157,6 +157,9 @@ def process_team_file(team_path):
         df['pitcher_diff_days'].apply(lambda x: 1.0 if x >= 60 else float(x))
     )
 
+    # Drop temporary columns
+    df.drop(columns=['prev_pitcher_date', 'pitcher_diff_days'], inplace=True)
+
     # -----------------------------------------------
     # Compute Rolling Averages for Specified Columns
     # -----------------------------------------------
