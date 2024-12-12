@@ -47,6 +47,8 @@ print("Best Parameters:", grid_search.best_params_)
 print("Best OOB Score:", grid_search.best_estimator_.oob_score_)
 # Best Parameters: {'max_depth': 10, 'max_features': 'log2', 'min_samples_leaf': 1, 'min_samples_split': 5, 'n_estimators': 400}
 # Best OOB Score: 0.5513689346706424
+# Best Parameters: {'max_depth': 10, 'max_features': 'log2', 'min_samples_leaf': 4, 'min_samples_split': 10, 'n_estimators': 10000}
+# Best OOB Score: 0.5548025661877655
 # Get the best model from grid search
 best_rf = grid_search.best_estimator_
 
