@@ -71,20 +71,21 @@ def calc(params):
 
     # Predict and evaluate
     y_pred = rf.predict(params["X_val"])
+    accuracy = accuracy_score(params["y_val"], y_pred)
 
     print(params["n_estimators"],
           params["max_features"], 
           params["max_depth"], 
           params["min_samples_split"], 
           params["min_samples_leaf"],
-          accuracy_score(params["y_val"], y_pred))
+          accuracy)
     
     return(params["n_estimators"],
           params["max_features"], 
           params["max_depth"], 
           params["min_samples_split"], 
           params["min_samples_leaf"],
-          accuracy_score(params["y_val"], y_pred))
+          accuracy)
 
 for param in params_list:
     param["X_train"] = X_train_1
@@ -106,7 +107,7 @@ sorted_results = sorted(
 )
 for accuracy in sorted_results:
     f.write(str(accuracy) + "\n")
-max_result = max(sorted_results, key=lambda x: x[5])
+max_result = max(sorted_results, key=lambda x: x["accuracy"])
 f.write(max_result+"\n")
 print(max_result)
 f.close()
@@ -131,7 +132,7 @@ sorted_results = sorted(
 )
 for accuracy in sorted_results:
     f.write(str(accuracy) + "\n")
-max_result = max(sorted_results, key=lambda x: x[5])
+max_result = max(sorted_results, key=lambda x: x["accuracy"])
 f.write(max_result+"\n")
 print(max_result)
 f.close()
