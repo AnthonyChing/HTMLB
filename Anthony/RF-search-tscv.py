@@ -83,21 +83,21 @@ def calc(params):
     y_pred = rf.predict(X_val_3)
     acc_3 = accuracy_score(y_val_3, y_pred)
 
-    acc = (acc_0*1+acc_1*2+acc_2*3+acc_3*4)
+    accuracy = (acc_0*1+acc_1*2+acc_2*3+acc_3*4)/10
 
     print(params["n_estimators"],
           params["max_features"], 
           params["max_depth"], 
           params["min_samples_split"], 
           params["min_samples_leaf"],
-          acc)
+          accuracy)
     
     return(params["n_estimators"],
           params["max_features"], 
           params["max_depth"], 
           params["min_samples_split"], 
           params["min_samples_leaf"],
-          acc)
+          accuracy)
 
 results = Parallel(n_jobs=-1)(delayed(calc)(params) for params in params_list)
 
@@ -114,7 +114,7 @@ sorted_results = sorted(
 )
 for accuracy in sorted_results:
     f.write(str(accuracy) + "\n")
-max_result = max(sorted_results, key=lambda x: x[5])
+max_result = max(sorted_results, key=lambda x: x["accuracy"])
 f.write(max_result+"\n")
-print(max_result[0], max_result[1], max_result[2])
+print(max_result)
 f.close()
