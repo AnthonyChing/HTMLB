@@ -9,7 +9,7 @@ uranus = 0
 f.readline()
 g.readline()
 h.readline()
-j = open('blend.csv', 'w')
+j = open(r'../stage 1/submissions/blend.csv', 'w')
 j.write('id,home_team_win\n')
 for i in range(6185):
     linef = 1 if f.readline().split(',')[1] == 'True\n' else 0
@@ -36,7 +36,7 @@ for i in range(6185):
         if lineh == 1:
             uranus += 1
 
-print("Aaron", aaron, "Anthony", anthony, "Uranus", uranus)
+print("Aaron", aaron, "Anthony", anthony, "Uranus", uranus) # Counts of disagreements towards the majority
 print((aaron + anthony + uranus)/ 6185)
 print(anthony/6185)
 print(aaron/6185)
