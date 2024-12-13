@@ -6,11 +6,8 @@ import os
 # Load data
 df = pd.read_csv('../uranus/preprocessing/undropped_train.csv')
 
-# Fill boolean columns with mode (most frequent value)
-df['is_night_game'] = df['is_night_game'].apply(lambda x: 1 if x == True else 0 if x == False else x)
-
-# Fill categorical columns with "Unknown"
 categorical_columns = df.select_dtypes(include=['object']).columns
+categorical_columns = categorical_columns.drop('is_night_game')
 
 # Encode categorical columns (factorize to numeric codes)
 encodings = {}
@@ -48,12 +45,13 @@ print("Best OOB Score:", grid_search.best_estimator_.oob_score_)
 # Best OOB Score: 0.5513689346706424
 # Best Parameters: {'max_depth': 10, 'max_features': 'log2', 'min_samples_leaf': 4, 'min_samples_split': 10, 'n_estimators': 10000}
 # Best OOB Score: 0.5548025661877655
+# Best Parameters: {'max_depth': 5, 'max_features': 'log2', 'min_samples_leaf': 2, 'min_samples_split': 2, 'n_estimators': 350}
+# Best OOB Score: 0.5595012198427758
 # Get the best model from grid search
 best_rf = grid_search.best_estimator_
 
 # Predict for Stage 1
 df = pd.read_csv(r'../stage 1/same_season_test_data.csv')
-df['is_night_game'] = df['is_night_game'].apply(lambda x: 1 if x == True else 0 if x == False else x)
 
 # Apply the same encoding to test data
 for col in categorical_columns:
@@ -75,7 +73,6 @@ f.close()
 
 # Predict for Stage 2
 df = pd.read_csv(r'../stage 2/2024_test_data.csv')
-df['is_night_game'] = df['is_night_game'].apply(lambda x: 1 if x == True else 0 if x == False else x)
 
 # Apply the same encoding to test data
 for col in categorical_columns:
