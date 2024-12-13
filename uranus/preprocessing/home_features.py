@@ -167,18 +167,20 @@ def process_team_file(team_path):
     for col in rolling_columns:
         df[col] = pd.to_numeric(df[col], errors='coerce')
 
-   # Compute average of the previous and next values per season, filling missing data
+    #First pass: fill isolated NaNs
     group_keys = ['season']
     for col in rolling_columns:
         df[col] = df.groupby(group_keys)[col].transform(
-        lambda x: x.fillna((x.shift(1) + x.shift(-1)) / 2)
-    )
+            lambda x: x.fillna((x.shift(1) + x.shift(-1)) / 2)
+        )
 
-    # For the first games of the season, if there's still NaN due to lack of data, 
-    # fill using the closest available data from that same season.
-    # Using transform with .bfill() ensures index compatibility
+    # Second pass: forward fill remaining NaNs
     for col in rolling_columns:
-        df[col] = df.groupby('season')[col].transform(lambda g: g.bfill())
+        df[col] = df.groupby(group_keys)[col].ffill()
+
+    # Third pass: backward fill if any NaNs still remain
+    for col in rolling_columns:
+        df[col] = df.groupby(group_keys)[col].bfill()
 
     # Optional: Fill any remaining NaNs with 0.0 or another default value
     # Uncomment the following line if you wish to fill remaining NaNs
