@@ -85,11 +85,11 @@ def calc(params):
           params["min_samples_split"], 
           params["min_samples_leaf"],
           accuracy_score(params["y_val"], y_pred))
-
-params_list["X_train"] = X_train_1
-params_list["y_train"] = y_train_1
-params_list["X_val"] = X_val_1
-params_list["y_val"] = y_val_1
+for param in params_list:
+    param["X_train"] = X_train_1
+    param["y_train"] = y_train_1
+    param["X_val"] = X_val_1
+    param["y_val"] = y_val_1
 results = Parallel(n_jobs=-1)(delayed(calc)(params) for params in params_list)
 
 f = open(f'RF-search-stage1-grid.txt', 'w')
@@ -101,10 +101,11 @@ f.write(max_result+"\n")
 print(max_result[0], max_result[1], max_result[2])
 f.close()
 
-params_list["X_train"] = X_train_2
-params_list["y_train"] = y_train_2
-params_list["X_val"] = X_val_2
-params_list["y_val"] = y_val_2
+for param in params_list:
+    param["X_train"] = X_train_2
+    param["y_train"] = y_train_2
+    param["X_val"] = X_val_2
+    param["y_val"] = y_val_2
 results = Parallel(n_jobs=-1)(delayed(calc)(params) for params in params_list)
 
 f = open(f'RF-search-stage2-grid.txt', 'w')
