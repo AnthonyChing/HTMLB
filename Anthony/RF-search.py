@@ -44,10 +44,10 @@ X_val_2 = val_data_2.drop(columns=['home_team_win', 'date', 'id']).values  # Fea
 y_val_2 = val_data_2['home_team_win'].values  # Target
 
 n_estimators = 10000
-max_features = ['sqrt', 'log2']
-max_depth = [5, 10, 15]
-min_samples_split = [2, 5, 10]
-min_samples_leaf = [1, 2, 4]
+max_features = ['sqrt']
+max_depth = [10, 15]
+min_samples_split = [5, 10]
+min_samples_leaf = [2, 4]
 params_list = [{"n_estimators": n_estimators, 
                 "max_features": features, 
                 "max_depth": depth, 
@@ -73,6 +73,9 @@ def calc(params):
     y_pred = rf.predict(params["X_val"])
     accuracy = accuracy_score(params["y_val"], y_pred)
 
+    # Add accuracy to params dictionary
+    params["accuracy"] = accuracy
+
     print(params["n_estimators"],
           params["max_features"], 
           params["max_depth"], 
@@ -80,12 +83,7 @@ def calc(params):
           params["min_samples_leaf"],
           accuracy)
     
-    return(params["n_estimators"],
-          params["max_features"], 
-          params["max_depth"], 
-          params["min_samples_split"], 
-          params["min_samples_leaf"],
-          accuracy)
+    return params
 
 for param in params_list:
     param["X_train"] = X_train_1
@@ -96,7 +94,7 @@ results = Parallel(n_jobs=-1)(delayed(calc)(params) for params in params_list)
 
 f = open(f'RF-search-late-stage1-grid.txt', 'w')
 sorted_results = sorted(
-    params_list,
+    results,
     key=lambda x: (
         x["n_estimators"],
         x["max_features"],
@@ -105,11 +103,27 @@ sorted_results = sorted(
         x["min_samples_leaf"]
     )
 )
-for accuracy in sorted_results:
-    f.write(str(accuracy) + "\n")
+for result in sorted_results:
+    f.write(str(result["n_estimators"]) + " " +
+        str(result["max_features"]) + " " +
+        str(result["max_depth"]) + " " +
+        str(result["min_samples_split"]) + " " +
+        str(result["min_samples_leaf"]) + " " +
+        str(result["accuracy"]) + "\n")
 max_result = max(sorted_results, key=lambda x: x["accuracy"])
-f.write(max_result+"\n")
-print(max_result)
+f.write(str(max_result["n_estimators"]) + " " +
+        str(max_result["max_features"]) + " " +
+        str(max_result["max_depth"]) + " " +
+        str(max_result["min_samples_split"]) + " " +
+        str(max_result["min_samples_leaf"]) + " " +
+        str(max_result["accuracy"]) + "\n")
+print("Stage 1 Optimal: " +
+        str(max_result["n_estimators"]) + " " +
+        str(max_result["max_features"]) + " " +
+        str(max_result["max_depth"]) + " " +
+        str(max_result["min_samples_split"]) + " " +
+        str(max_result["min_samples_leaf"]) + " " +
+        str(max_result["accuracy"]) + "\n")
 f.close()
 
 for param in params_list:
@@ -121,7 +135,7 @@ results = Parallel(n_jobs=-1)(delayed(calc)(params) for params in params_list)
 
 f = open(f'RF-search-late-stage2-grid.txt', 'w')
 sorted_results = sorted(
-    params_list,
+    results,
     key=lambda x: (
         x["n_estimators"],
         x["max_features"],
@@ -130,9 +144,25 @@ sorted_results = sorted(
         x["min_samples_leaf"]
     )
 )
-for accuracy in sorted_results:
-    f.write(str(accuracy) + "\n")
+for result in sorted_results:
+    f.write(str(result["n_estimators"]) + " " +
+        str(result["max_features"]) + " " +
+        str(result["max_depth"]) + " " +
+        str(result["min_samples_split"]) + " " +
+        str(result["min_samples_leaf"]) + " " +
+        str(result["accuracy"]) + "\n")
 max_result = max(sorted_results, key=lambda x: x["accuracy"])
-f.write(max_result+"\n")
-print(max_result)
+f.write(str(max_result["n_estimators"]) + " " +
+        str(max_result["max_features"]) + " " +
+        str(max_result["max_depth"]) + " " +
+        str(max_result["min_samples_split"]) + " " +
+        str(max_result["min_samples_leaf"]) + " " +
+        str(max_result["accuracy"]) + "\n")
+print("Stage 2 Optimal: " +
+        str(max_result["n_estimators"]) + " " +
+        str(max_result["max_features"]) + " " +
+        str(max_result["max_depth"]) + " " +
+        str(max_result["min_samples_split"]) + " " +
+        str(max_result["min_samples_leaf"]) + " " +
+        str(max_result["accuracy"]) + "\n")
 f.close()
