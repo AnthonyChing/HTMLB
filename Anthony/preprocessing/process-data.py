@@ -1,8 +1,8 @@
 import pandas as pd
 # Convert training data
 # Load original and new CSV files
-original_df = pd.read_csv('train_data.csv')
-updates_df = pd.read_csv('../EDA/Train/data-5.0.csv')
+original_df = pd.read_csv(r'../../stage 1/train_data.csv')
+updates_df = pd.read_csv('../../EDA/Train/data-5.0.csv')
 
 # Ensure both DataFrames have the same number of rows
 if len(original_df) != len(updates_df):
@@ -24,8 +24,8 @@ original_df = original_df.sort_values(by=['year', 'month', 'day'], ascending=[Tr
 original_df.to_csv('updated_original.csv', index=False)
 
 # Convert Testing data
-original_df = pd.read_csv('same_season_test_data.csv')
-updates_df = pd.read_csv('../EDA/Test/test-data-1.0.csv')
+original_df = pd.read_csv(r'../../stage 1/same_season_test_data.csv')
+updates_df = pd.read_csv('../../EDA/Test/test-data-1.0.csv')
 
 # Ensure both DataFrames have the same number of rows
 if len(original_df) != len(updates_df):
