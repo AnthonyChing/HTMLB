@@ -26,8 +26,8 @@ for col in categorical_columns:
 X_train_1 = train_data_1.drop(columns=['home_team_win', 'date', 'id']).values  # Features
 y_train_1 = train_data_1['home_team_win'].values  # Target
 
-X_val_1 = train_data_1.drop(columns=['home_team_win', 'date', 'id']).values  # Features
-y_val_1 = train_data_1['home_team_win'].values  # Target
+X_val_1 = val_data_1.drop(columns=['home_team_win', 'date', 'id']).values  # Features
+y_val_1 = val_data_1['home_team_win'].values  # Target
 
 train_data_2 = pd.read_csv('../uranus/preprocessing/Late_Game_Dataset2/train_data_2.csv')
 val_data_2 = pd.read_csv('../uranus/preprocessing/Late_Game_Dataset2/val_data_2.csv')
@@ -40,8 +40,8 @@ for col in categorical_columns:
 X_train_2 = train_data_2.drop(columns=['home_team_win', 'date', 'id']).values  # Features
 y_train_2 = train_data_2['home_team_win'].values  # Target
 
-X_val_2 = train_data_2.drop(columns=['home_team_win', 'date', 'id']).values  # Features
-y_val_2 = train_data_2['home_team_win'].values  # Target
+X_val_2 = val_data_2.drop(columns=['home_team_win', 'date', 'id']).values  # Features
+y_val_2 = val_data_2['home_team_win'].values  # Target
 
 n_estimators = 10000
 max_features = ['sqrt', 'log2']
@@ -85,6 +85,7 @@ def calc(params):
           params["min_samples_split"], 
           params["min_samples_leaf"],
           accuracy_score(params["y_val"], y_pred))
+
 for param in params_list:
     param["X_train"] = X_train_1
     param["y_train"] = y_train_1
@@ -92,13 +93,22 @@ for param in params_list:
     param["y_val"] = y_val_1
 results = Parallel(n_jobs=-1)(delayed(calc)(params) for params in params_list)
 
-f = open(f'RF-search-stage1-grid.txt', 'w')
-sorted_results = sorted(params_list, key=lambda x: (x[0], x[1], x[2], x[3], x[4]))
+f = open(f'RF-search-late-stage1-grid.txt', 'w')
+sorted_results = sorted(
+    params_list,
+    key=lambda x: (
+        x["n_estimators"],
+        x["max_features"],
+        x["max_depth"],
+        x["min_samples_split"],
+        x["min_samples_leaf"]
+    )
+)
 for accuracy in sorted_results:
     f.write(str(accuracy) + "\n")
 max_result = max(sorted_results, key=lambda x: x[5])
 f.write(max_result+"\n")
-print(max_result[0], max_result[1], max_result[2])
+print(max_result)
 f.close()
 
 for param in params_list:
@@ -108,8 +118,17 @@ for param in params_list:
     param["y_val"] = y_val_2
 results = Parallel(n_jobs=-1)(delayed(calc)(params) for params in params_list)
 
-f = open(f'RF-search-stage2-grid.txt', 'w')
-sorted_results = sorted(params_list, key=lambda x: (x[0], x[1], x[2], x[3], x[4]))
+f = open(f'RF-search-late-stage2-grid.txt', 'w')
+sorted_results = sorted(
+    params_list,
+    key=lambda x: (
+        x["n_estimators"],
+        x["max_features"],
+        x["max_depth"],
+        x["min_samples_split"],
+        x["min_samples_leaf"]
+    )
+)
 for accuracy in sorted_results:
     f.write(str(accuracy) + "\n")
 max_result = max(sorted_results, key=lambda x: x[5])
