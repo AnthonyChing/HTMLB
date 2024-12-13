@@ -70,18 +70,67 @@ def calc(params):
     rf.fit(X_train_0, y_train_0)
     y_pred = rf.predict(X_val_0)
     acc_0 = accuracy_score(y_val_0, y_pred)
-
+    print("Calculated acc_0: " +
+        str(params["n_estimators"]) + " " +
+        str(params["max_features"]) + " " +
+        str(params["max_depth"]) + " " +
+        str(params["min_samples_split"]) + " " +
+        str(params["min_samples_leaf"]) + " " +
+        str(acc_0))
+    
+    rf = RandomForestClassifier(n_estimators=params["n_estimators"], 
+                                max_features=params["max_features"],
+                                max_depth=params["max_depth"],
+                                min_samples_split=params["min_samples_split"],
+                                min_samples_leaf=params["min_samples_leaf"],
+                                random_state=1126)
+    
     rf.fit(X_train_1, y_train_1)
     y_pred = rf.predict(X_val_1)
     acc_1 = accuracy_score(y_val_1, y_pred)
-
+    print("Calculated acc_1: " +
+        str(params["n_estimators"]) + " " +
+        str(params["max_features"]) + " " +
+        str(params["max_depth"]) + " " +
+        str(params["min_samples_split"]) + " " +
+        str(params["min_samples_leaf"]) + " " +
+        str(acc_1))
+    
+    rf = RandomForestClassifier(n_estimators=params["n_estimators"], 
+                                max_features=params["max_features"],
+                                max_depth=params["max_depth"],
+                                min_samples_split=params["min_samples_split"],
+                                min_samples_leaf=params["min_samples_leaf"],
+                                random_state=1126)
+    
     rf.fit(X_train_2, y_train_2)
     y_pred = rf.predict(X_val_2)
     acc_2 = accuracy_score(y_val_2, y_pred)
+    print("Calculated acc_2: " +
+        str(params["n_estimators"]) + " " +
+        str(params["max_features"]) + " " +
+        str(params["max_depth"]) + " " +
+        str(params["min_samples_split"]) + " " +
+        str(params["min_samples_leaf"]) + " " +
+        str(acc_2))
 
+    rf = RandomForestClassifier(n_estimators=params["n_estimators"], 
+                                max_features=params["max_features"],
+                                max_depth=params["max_depth"],
+                                min_samples_split=params["min_samples_split"],
+                                min_samples_leaf=params["min_samples_leaf"],
+                                random_state=1126)
+    
     rf.fit(X_train_3, y_train_3)
     y_pred = rf.predict(X_val_3)
     acc_3 = accuracy_score(y_val_3, y_pred)
+    print("Calculated acc_3: " +
+        str(params["n_estimators"]) + " " +
+        str(params["max_features"]) + " " +
+        str(params["max_depth"]) + " " +
+        str(params["min_samples_split"]) + " " +
+        str(params["min_samples_leaf"]) + " " +
+        str(acc_3))
 
     accuracy = (acc_0*1+acc_1*2+acc_2*3+acc_3*4)/10
     params["accuracy"] = accuracy
@@ -95,7 +144,7 @@ def calc(params):
     
     return params
 
-results = Parallel(n_jobs=-1)(delayed(calc)(params) for params in params_list)
+results = Parallel(n_jobs=8)(delayed(calc)(params) for params in params_list)
 
 f = open(f'RF-search-tscv-grid.txt', 'w')
 sorted_results = sorted(
@@ -128,5 +177,5 @@ print("Optimal: " +
         str(max_result["max_depth"]) + " " +
         str(max_result["min_samples_split"]) + " " +
         str(max_result["min_samples_leaf"]) + " " +
-        str(max_result["accuracy"]) + "\n")
+        str(max_result["accuracy"]))
 f.close()
