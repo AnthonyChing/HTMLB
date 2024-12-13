@@ -45,6 +45,10 @@ def prepare_data(input_file='undropped_train.csv',
             (X['day'] > 15)
         )
 
+        # Drop the 'year', 'month', 'day' columns from the splits
+        columns_to_drop = ['year', 'month', 'day']
+        X.drop(columns=columns_to_drop, inplace=True, errors='ignore')
+
         X_train = X[train_mask].copy()
         X_val = X[val_mask].copy()
 
