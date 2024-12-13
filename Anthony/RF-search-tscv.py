@@ -45,10 +45,10 @@ val_data_3 = pd.read_csv('val_data_tscv_3.csv')
 X_train_3, y_train_3, X_val_3, y_val_3 = split(train_data_3, val_data_3)
 
 n_estimators = 10000
-max_features = ['sqrt', 'log2']
-max_depth = [5, 10, 15]
-min_samples_split = [2, 5, 10]
-min_samples_leaf = [1, 2, 4]
+max_features = ['sqrt']
+max_depth = [10, 15]
+min_samples_split = [5, 10]
+min_samples_leaf = [2, 4]
 params_list = [{"n_estimators": n_estimators, 
                 "max_features": features, 
                 "max_depth": depth, 
@@ -84,6 +84,7 @@ def calc(params):
     acc_3 = accuracy_score(y_val_3, y_pred)
 
     accuracy = (acc_0*1+acc_1*2+acc_2*3+acc_3*4)/10
+    params["accuracy"] = accuracy
 
     print(params["n_estimators"],
           params["max_features"], 
@@ -92,18 +93,13 @@ def calc(params):
           params["min_samples_leaf"],
           accuracy)
     
-    return(params["n_estimators"],
-          params["max_features"], 
-          params["max_depth"], 
-          params["min_samples_split"], 
-          params["min_samples_leaf"],
-          accuracy)
+    return params
 
 results = Parallel(n_jobs=-1)(delayed(calc)(params) for params in params_list)
 
 f = open(f'RF-search-tscv-grid.txt', 'w')
 sorted_results = sorted(
-    params_list,
+    results,
     key=lambda x: (
         x["n_estimators"],
         x["max_features"],
@@ -112,9 +108,25 @@ sorted_results = sorted(
         x["min_samples_leaf"]
     )
 )
-for accuracy in sorted_results:
-    f.write(str(accuracy) + "\n")
+for result in sorted_results:
+    f.write(str(result["n_estimators"]) + " " +
+        str(result["max_features"]) + " " +
+        str(result["max_depth"]) + " " +
+        str(result["min_samples_split"]) + " " +
+        str(result["min_samples_leaf"]) + " " +
+        str(result["accuracy"]) + "\n")
 max_result = max(sorted_results, key=lambda x: x["accuracy"])
-f.write(max_result+"\n")
-print(max_result)
+f.write(str(max_result["n_estimators"]) + " " +
+        str(max_result["max_features"]) + " " +
+        str(max_result["max_depth"]) + " " +
+        str(max_result["min_samples_split"]) + " " +
+        str(max_result["min_samples_leaf"]) + " " +
+        str(max_result["accuracy"]) + "\n")
+print("Optimal: " +
+        str(max_result["n_estimators"]) + " " +
+        str(max_result["max_features"]) + " " +
+        str(max_result["max_depth"]) + " " +
+        str(max_result["min_samples_split"]) + " " +
+        str(max_result["min_samples_leaf"]) + " " +
+        str(max_result["accuracy"]) + "\n")
 f.close()
