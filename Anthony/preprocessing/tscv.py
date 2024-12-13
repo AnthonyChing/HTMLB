@@ -16,4 +16,4 @@ for index, size in enumerate(train_size):
     else:
         test = df.iloc[size:size+n]
     train.to_csv(f'../train_data_tscv_{index}.csv', index=False)
-    test.to_csv(f'../test_data_tscv_{index}.csv', index=False)
+    test.to_csv(f'../val_data_tscv_{index}.csv', index=False)
