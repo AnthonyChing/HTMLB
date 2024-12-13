@@ -11,7 +11,6 @@ df['is_night_game'] = df['is_night_game'].apply(lambda x: 1 if x == True else 0 
 
 # Fill categorical columns with "Unknown"
 categorical_columns = df.select_dtypes(include=['object']).columns
-df[categorical_columns] = df[categorical_columns].fillna("Unknown")
 
 # Encode categorical columns (factorize to numeric codes)
 encodings = {}
@@ -24,9 +23,9 @@ y = df['home_team_win'].values  # Target
 
 # Define parameter grid
 param_grid = {
-    'n_estimators': [200, 300, 400],
+    'n_estimators': [350, 400, 450],
     'max_features': ['sqrt', 'log2'],
-    'max_depth': [10, 20, None],
+    'max_depth': [5, 10, 15],
     'min_samples_split': [2, 5, 10],
     'min_samples_leaf': [1, 2, 4]
 }
@@ -56,11 +55,9 @@ best_rf = grid_search.best_estimator_
 df = pd.read_csv(r'../stage 1/same_season_test_data.csv')
 df['is_night_game'] = df['is_night_game'].apply(lambda x: 1 if x == True else 0 if x == False else x)
 
-categorical_columns = df.select_dtypes(include=['object']).columns
-df[categorical_columns] = df[categorical_columns].fillna("Unknown")
 # Apply the same encoding to test data
 for col in categorical_columns:
-    df[col] = df[col].map({value: idx for idx, value in enumerate(encodings[col])}).fillna(-1).astype(int)
+    df[col] = df[col].map({value: idx for idx, value in enumerate(encodings[col])})
 X_test = df.drop(columns=['id']).values
 # Predict and evaluate
 y_pred = best_rf.predict(X_test)
@@ -80,11 +77,9 @@ f.close()
 df = pd.read_csv(r'../stage 2/2024_test_data.csv')
 df['is_night_game'] = df['is_night_game'].apply(lambda x: 1 if x == True else 0 if x == False else x)
 
-categorical_columns = df.select_dtypes(include=['object']).columns
-df[categorical_columns] = df[categorical_columns].fillna("Unknown")
 # Apply the same encoding to test data
 for col in categorical_columns:
-    df[col] = df[col].map({value: idx for idx, value in enumerate(encodings[col])}).fillna(-1).astype(int)
+    df[col] = df[col].map({value: idx for idx, value in enumerate(encodings[col])})
 X_test = df.drop(columns=['id']).values
 # Predict and evaluate
 y_pred = best_rf.predict(X_test)
