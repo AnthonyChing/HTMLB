@@ -7,7 +7,9 @@ scripts = [
     "home_combine.py",
     "away_shared_features.py",
     "away_features.py",
-    "away_combine.py"
+    "away_combine.py",
+    "Late_Game_Preprocess1.py",
+    "Late_Game_Preprocess2.py"
 ]
 
 # Execute each script in order
