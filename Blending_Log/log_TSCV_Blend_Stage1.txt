@@ -1,0 +1,10 @@
+// This is the log file of TSCV_Blend_Stage1
+
+Difference counts with consensus per file:
+AdaBoost_prediction.csv: 1596 differences with consensus (Ratio: 25.80%)
+RBF_C0.25_G0.015625_TSCV_S1_162col.csv: 1139 differences with consensus (Ratio: 18.42%)
+LR_tscv.csv: 1340 differences with consensus (Ratio: 21.67%)
+RF-tscv.csv: 325 differences with consensus (Ratio: 5.25%)
+lightGBM_tscv.csv: 444 differences with consensus (Ratio: 7.18%)
+
+Total differences across all files: 4844 (Overall Ratio: 15.66%)

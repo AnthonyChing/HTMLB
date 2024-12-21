@@ -1,0 +1,10 @@
+// This is the log file of Late_Blend_Stage_2
+
+Difference counts with consensus per file:
+AdaBoost_prediction2.csv: 562 differences with consensus (Ratio: 23.15%)
+RBF_C0.25_G0.03125_LateGame_S2_162col.csv: 546 differences with consensus (Ratio: 22.49%)
+LR_late_game_S2.csv: 622 differences with consensus (Ratio: 25.62%)
+RF-late.csv: 350 differences with consensus (Ratio: 14.42%)
+lightGBM_Late.csv: 319 differences with consensus (Ratio: 13.14%)
+
+Total differences across all files: 2399 (Overall Ratio: 19.76%)
