@@ -1,0 +1,344 @@
+....*
+optimization finished, #iter = 4497
+nu = 0.941856
+obj = -8.973712, rho = 0.999506
+nSV = 8974, nBSV = 8974
+Total nSV = 8974
+Accuracy = 54.52% (778/1427) (classification)
+....*
+optimization finished, #iter = 4659
+nu = 0.941856
+obj = -89.715565, rho = 0.994651
+nSV = 8974, nBSV = 8974
+Total nSV = 8974
+Accuracy = 54.52% (778/1427) (classification)
+....*
+optimization finished, #iter = 4707
+nu = 0.941856
+obj = -894.974809, rho = 0.947890
+nSV = 8974, nBSV = 8974
+Total nSV = 8974
+Accuracy = 54.52% (778/1427) (classification)
+....*
+optimization finished, #iter = 4675
+nu = 0.941856
+obj = -8731.496833, rho = 0.479867
+nSV = 8977, nBSV = 8972
+Total nSV = 8977
+Accuracy = 55.0105% (785/1427) (classification)
+....*
+optimization finished, #iter = 4508
+nu = 0.854691
+obj = -78608.438616, rho = -0.104060
+nSV = 8156, nBSV = 8133
+Total nSV = 8156
+Accuracy = 54.8704% (783/1427) (classification)
+.....*
+optimization finished, #iter = 5145
+nu = 0.795353
+obj = -752126.660755, rho = -0.036343
+nSV = 7602, nBSV = 7557
+Total nSV = 7602
+Accuracy = 53.8192% (768/1427) (classification)
+.............*
+optimization finished, #iter = 13619
+nu = 0.784128
+obj = -7453047.179847, rho = -4.538536
+nSV = 7507, nBSV = 7431
+Total nSV = 7507
+Accuracy = 51.9271% (741/1427) (classification)
+....*
+optimization finished, #iter = 4667
+nu = 0.941856
+obj = -8.971596, rho = 0.994823
+nSV = 8974, nBSV = 8974
+Total nSV = 8974
+Accuracy = 54.52% (778/1427) (classification)
+....*
+optimization finished, #iter = 4712
+nu = 0.941856
+obj = -89.501509, rho = 0.949173
+nSV = 8974, nBSV = 8974
+Total nSV = 8974
+Accuracy = 54.52% (778/1427) (classification)
+....*
+optimization finished, #iter = 4689
+nu = 0.941856
+obj = -873.553269, rho = 0.492620
+nSV = 8976, nBSV = 8972
+Total nSV = 8976
+Accuracy = 54.8003% (782/1427) (classification)
+....*
+optimization finished, #iter = 4473
+nu = 0.855385
+obj = -7863.855125, rho = -0.070667
+nSV = 8158, nBSV = 8139
+Total nSV = 8158
+Accuracy = 55.0105% (785/1427) (classification)
+.....*
+optimization finished, #iter = 5180
+nu = 0.795330
+obj = -75142.796266, rho = 0.023118
+nSV = 7605, nBSV = 7551
+Total nSV = 7605
+Accuracy = 54.0995% (772/1427) (classification)
+.............*
+optimization finished, #iter = 13529
+nu = 0.782718
+obj = -740361.070761, rho = -0.954630
+nSV = 7509, nBSV = 7404
+Total nSV = 7509
+Accuracy = 51.2263% (731/1427) (classification)
+.................................................................................................................*
+optimization finished, #iter = 113452
+nu = 0.769638
+obj = -7190972.629099, rho = 3.494642
+nSV = 7498, nBSV = 7171
+Total nSV = 7498
+Accuracy = 53.609% (765/1427) (classification)
+....*
+optimization finished, #iter = 4724
+nu = 0.941856
+obj = -8.953864, rho = 0.961970
+nSV = 8974, nBSV = 8974
+Total nSV = 8974
+Accuracy = 54.52% (778/1427) (classification)
+....*
+optimization finished, #iter = 4705
+nu = 0.941856
+obj = -87.726559, rho = 0.620610
+nSV = 8978, nBSV = 8971
+Total nSV = 8978
+Accuracy = 54.52% (778/1427) (classification)
+....*
+optimization finished, #iter = 4499
+nu = 0.862687
+obj = -790.040736, rho = -0.042444
+nSV = 8229, nBSV = 8207
+Total nSV = 8229
+Accuracy = 55.3609% (790/1427) (classification)
+....*
+optimization finished, #iter = 4916
+nu = 0.795210
+obj = -7471.167024, rho = 0.063823
+nSV = 7620, nBSV = 7531
+Total nSV = 7620
+Accuracy = 53.8893% (769/1427) (classification)
+............*
+optimization finished, #iter = 12162
+nu = 0.772583
+obj = -71899.212688, rho = 0.150768
+nSV = 7526, nBSV = 7221
+Total nSV = 7526
+Accuracy = 54.3798% (776/1427) (classification)
+...................................................................................................*
+optimization finished, #iter = 99135
+nu = 0.731058
+obj = -656388.763117, rho = 1.330641
+nSV = 7446, nBSV = 6492
+Total nSV = 7446
+Accuracy = 53.8893% (769/1427) (classification)
+..............................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................*
+optimization finished, #iter = 782635
+nu = 0.629644
+obj = -5195559.133386, rho = 4.384826
+nSV = 7220, nBSV = 4875
+Total nSV = 7220
+Accuracy = 53.1184% (758/1427) (classification)
+....*
+optimization finished, #iter = 4806
+nu = 0.941856
+obj = -8.929694, rho = 0.945284
+nSV = 8978, nBSV = 8970
+Total nSV = 8978
+Accuracy = 54.52% (778/1427) (classification)
+....*
+optimization finished, #iter = 4739
+nu = 0.941340
+obj = -85.311393, rho = 0.455757
+nSV = 8983, nBSV = 8959
+Total nSV = 8983
+Accuracy = 54.52% (778/1427) (classification)
+....*
+optimization finished, #iter = 4705
+nu = 0.829474
+obj = -757.955967, rho = 0.337131
+nSV = 7978, nBSV = 7819
+Total nSV = 7978
+Accuracy = 54.59% (779/1427) (classification)
+.........*
+optimization finished, #iter = 9032
+nu = 0.760303
+obj = -6574.618500, rho = 0.176228
+nSV = 7778, nBSV = 6669
+Total nSV = 7778
+Accuracy = 54.6601% (780/1427) (classification)
+..................................................*
+optimization finished, #iter = 50770
+nu = 0.585429
+obj = -41012.001130, rho = 0.248355
+nSV = 7862, nBSV = 3635
+Total nSV = 7862
+Accuracy = 52.2074% (745/1427) (classification)
+.......................................................................................................................................................................*
+optimization finished, #iter = 167744
+nu = 0.188126
+obj = -91940.090366, rho = 0.300914
+nSV = 7490, nBSV = 129
+Total nSV = 7490
+Accuracy = 51.9972% (742/1427) (classification)
+..................................................................................................................................................................................*
+optimization finished, #iter = 178865
+nu = 0.019505
+obj = -92938.483187, rho = 0.281638
+nSV = 7462, nBSV = 0
+Total nSV = 7462
+Accuracy = 52.8381% (754/1427) (classification)
+....*
+optimization finished, #iter = 4944
+nu = 0.941856
+obj = -8.969456, rho = 0.999283
+nSV = 9358, nBSV = 8590
+Total nSV = 9358
+Accuracy = 54.52% (778/1427) (classification)
+......*
+optimization finished, #iter = 6189
+nu = 0.941856
+obj = -89.291845, rho = 0.990369
+nSV = 9519, nBSV = 7327
+Total nSV = 9519
+Accuracy = 54.52% (778/1427) (classification)
+.......*
+optimization finished, #iter = 7566
+nu = 0.941856
+obj = -852.594970, rho = 0.901987
+nSV = 9520, nBSV = 6297
+Total nSV = 9520
+Accuracy = 54.52% (778/1427) (classification)
+.............*
+optimization finished, #iter = 13876
+nu = 0.887920
+obj = -4597.482780, rho = 0.096659
+nSV = 9517, nBSV = 4059
+Total nSV = 9517
+Accuracy = 54.52% (778/1427) (classification)
+.................*
+optimization finished, #iter = 17752
+nu = 0.099124
+obj = -4722.279797, rho = 0.057866
+nSV = 9522, nBSV = 0
+Total nSV = 9522
+Accuracy = 54.52% (778/1427) (classification)
+.................*
+optimization finished, #iter = 17752
+nu = 0.009912
+obj = -4722.279797, rho = 0.057866
+nSV = 9522, nBSV = 0
+Total nSV = 9522
+Accuracy = 54.52% (778/1427) (classification)
+.................*
+optimization finished, #iter = 17752
+nu = 0.000991
+obj = -4722.279797, rho = 0.057866
+nSV = 9522, nBSV = 0
+Total nSV = 9522
+Accuracy = 54.52% (778/1427) (classification)
+....*
+optimization finished, #iter = 4643
+nu = 0.941856
+obj = -8.969552, rho = 0.999500
+nSV = 9130, nBSV = 8818
+Total nSV = 9130
+Accuracy = 54.52% (778/1427) (classification)
+........*
+optimization finished, #iter = 8974
+nu = 0.941856
+obj = -89.315700, rho = 0.991096
+nSV = 9528, nBSV = 4487
+Total nSV = 9528
+Accuracy = 54.52% (778/1427) (classification)
+............*
+optimization finished, #iter = 12754
+nu = 0.941856
+obj = -854.988168, rho = 0.910959
+nSV = 9528, nBSV = 4487
+Total nSV = 9528
+Accuracy = 54.52% (778/1427) (classification)
+..............*
+optimization finished, #iter = 14993
+nu = 0.941856
+obj = -4732.819998, rho = 0.109585
+nSV = 9528, nBSV = 4487
+Total nSV = 9528
+Accuracy = 54.52% (778/1427) (classification)
+..........................*
+optimization finished, #iter = 26130
+nu = 0.099644
+obj = -4747.068007, rho = 0.057976
+nSV = 9528, nBSV = 0
+Total nSV = 9528
+Accuracy = 54.52% (778/1427) (classification)
+..........................*
+optimization finished, #iter = 26130
+nu = 0.009964
+obj = -4747.068007, rho = 0.057976
+nSV = 9528, nBSV = 0
+Total nSV = 9528
+Accuracy = 54.52% (778/1427) (classification)
+..........................*
+optimization finished, #iter = 26130
+nu = 0.000996
+obj = -4747.068007, rho = 0.057976
+nSV = 9528, nBSV = 0
+Total nSV = 9528
+Accuracy = 54.52% (778/1427) (classification)
+.....*
+optimization finished, #iter = 5038
+nu = 0.941856
+obj = -8.969651, rho = 0.999500
+nSV = 9525, nBSV = 8423
+Total nSV = 9525
+Accuracy = 54.52% (778/1427) (classification)
+........*
+optimization finished, #iter = 8974
+nu = 0.941856
+obj = -89.315768, rho = 0.991099
+nSV = 9528, nBSV = 4487
+Total nSV = 9528
+Accuracy = 54.52% (778/1427) (classification)
+............*
+optimization finished, #iter = 12785
+nu = 0.941856
+obj = -854.994699, rho = 0.910986
+nSV = 9528, nBSV = 4487
+Total nSV = 9528
+Accuracy = 54.52% (778/1427) (classification)
+...............*
+optimization finished, #iter = 15010
+nu = 0.941856
+obj = -4733.478301, rho = 0.109864
+nSV = 9528, nBSV = 4487
+Total nSV = 9528
+Accuracy = 54.52% (778/1427) (classification)
+.........................*
+optimization finished, #iter = 25079
+nu = 0.099692
+obj = -4747.804274, rho = 0.058125
+nSV = 9528, nBSV = 0
+Total nSV = 9528
+Accuracy = 54.52% (778/1427) (classification)
+.........................*
+optimization finished, #iter = 25079
+nu = 0.009969
+obj = -4747.804274, rho = 0.058125
+nSV = 9528, nBSV = 0
+Total nSV = 9528
+Accuracy = 54.52% (778/1427) (classification)
+.........................*
+optimization finished, #iter = 25079
+nu = 0.000997
+obj = -4747.804274, rho = 0.058125
+nSV = 9528, nBSV = 0
+Total nSV = 9528
+Accuracy = 54.52% (778/1427) (classification)
+0.1 0.1 55.36089698668535
