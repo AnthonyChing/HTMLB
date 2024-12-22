@@ -38,7 +38,7 @@ for i in range(4):
     y_train_tscv.append(y_train)
     y_val_tscv.append(y_val)
 
-n_estimators = [100 * i for i in range(1, 11, 2)]
+n_estimators = [100 * i for i in range(1, 3, 2)]
 max_features = ['sqrt', 'log2', None]
 max_depth = [10, 15, None]
 params_list = [{"n_estimators": estimators, 
@@ -88,12 +88,12 @@ with open(f'RF-search-tscv-grid-less.txt', 'w') as f:
         )
     )
     for result in sorted_results:
-        f.write(toString(result) + " " + result["accuracy"] + " " + result["oob_score"] + "\n")
+        f.write(toString(result) + " " + str(result["accuracy"]) + " " + str(result["oob_score"]) + "\n")
         model = result["model"]
-        filename = f"rf_model_tscv_{result['n_estimators']}_{result['max_features']}_{result[max_depth]}.joblib"
+        filename = f"rf_model_tscv_{result['n_estimators']}_{result['max_features']}_{result['max_depth']}.joblib"
         dump(model, filename)
         print(f"Model saved to {filename}")
     max_result = max(sorted_results, key=lambda x: x["accuracy"])
-    f.write(toString(max_result) + " " + max_result["accuracy"] + " " + max_result["oob_score"] + "\n")
-    print("Optimal: " + toString(max_result) + " " + max_result["accuracy"] + " " + max_result["oob_score"])
+    f.write(toString(max_result) + " " + str(max_result["accuracy"]) + " " + str(max_result["oob_score"]) + "\n")
+    print("Optimal:", toString(max_result), max_result["accuracy"], max_result["oob_score"])
     print(max_result["feature_importance"])
