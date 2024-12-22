@@ -87,8 +87,8 @@ y_ans = ans["home_team_win"].replace({True: 1, False: 0}).values
 acc_tscv = accuracy_score(y_ans, y_pred_tscv)
 print(1 - acc_tscv)
 
-# if not os.path.exists(r'../stage 1/submissions'):
-#     os.makedirs(r'../stage 1/submissions')
+if not os.path.exists(r'../stage 1/submissions'):
+    os.makedirs(r'../stage 1/submissions')
 
 # with open(f'../stage 1/submissions/RF-late.csv', 'w') as f:
 #     f.write("id,home_team_win\n")
@@ -98,13 +98,13 @@ print(1 - acc_tscv)
 #         else:
 #             f.write(str(index) + ",False\n")
 
-# with open(f'../stage 1/submissions/RF-tscv.csv', 'w') as f:
-#     f.write("id,home_team_win\n")
-#     for index, y_pred in enumerate(y_pred_tscv):
-#         if(y_pred == 1):
-#             f.write(str(index) + ",True\n")
-#         else:
-#             f.write(str(index) + ",False\n")
+with open(f'../stage 1/submissions/RF.csv', 'w') as f:
+    f.write("id,home_team_win\n")
+    for index, y_pred in enumerate(y_pred_tscv):
+        if(y_pred == 1):
+            f.write(str(index) + ",True\n")
+        else:
+            f.write(str(index) + ",False\n")
 
 # Predict for Stage 2
 df = pd.read_csv(r'../stage 2/2024_test_data.csv')
@@ -130,10 +130,10 @@ print(1 - acc_tscv)
 #         else:
 #             f.write(str(index) + ",False\n")
 
-# with open(f'../stage 2/submissions/RF-tscv.csv', 'w') as f:
-#     f.write("id,home_team_win\n")
-#     for index, y_pred in enumerate(y_pred_tscv):
-#         if(y_pred == 1):
-#             f.write(str(index) + ",True\n")
-#         else:
-#             f.write(str(index) + ",False\n")
+with open(f'../stage 2/submissions/RF.csv', 'w') as f:
+    f.write("id,home_team_win\n")
+    for index, y_pred in enumerate(y_pred_tscv):
+        if(y_pred == 1):
+            f.write(str(index) + ",True\n")
+        else:
+            f.write(str(index) + ",False\n")
