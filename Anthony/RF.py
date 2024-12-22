@@ -2,6 +2,7 @@ from sklearn.ensemble import RandomForestClassifier
 from sklearn.model_selection import GridSearchCV
 import pandas as pd
 import os
+from sklearn.metrics import accuracy_score
 
 # Load data
 df = pd.read_csv('../uranus/preprocessing/undropped_train.csv')
@@ -18,29 +19,26 @@ for col in categorical_columns:
 X = df.drop(columns=['home_team_win', 'date', 'id']).values  # Features
 y = df['home_team_win'].values  # Target
 
-rf_late_1 = RandomForestClassifier(n_estimators=10000, 
-                            max_features='sqrt',
-                            max_depth=10,
-                            min_samples_split=10,
-                            min_samples_leaf=4,
-                            random_state=1126)
-rf_late_1.fit(X, y)
-
-rf_late_2 = RandomForestClassifier(n_estimators=10000, 
-                            max_features='sqrt',
-                            max_depth=10,
-                            min_samples_split=5,
-                            min_samples_leaf=4,
-                            random_state=1126)
-rf_late_2.fit(X, y)
-
-# rf_tscv = RandomForestClassifier(n_estimators=10000, 
+# rf_late_1 = RandomForestClassifier(n_estimators=700, 
 #                             max_features='sqrt',
-#                             max_depth=10,
-#                             min_samples_split=5,
-#                             min_samples_leaf=4,
+#                             max_depth=15,
 #                             random_state=1126)
-# rf_tscv.fit(X, y)
+# rf_late_1.fit(X, y)
+# print('trained rf_late_1')
+
+# rf_late_2 = RandomForestClassifier(n_estimators=300, 
+#                             max_features='log2',
+#                             max_depth=10,
+#                             random_state=1126)
+# rf_late_2.fit(X, y)
+# print('trained rf_late_2')
+
+rf_tscv = RandomForestClassifier(n_estimators=900,
+                            max_features='log2',
+                            max_depth=10,
+                            random_state=1126)
+rf_tscv.fit(X, y)
+print('trained rf_tscv')
 
 # Define parameter grid
 # param_grid = {
@@ -76,6 +74,7 @@ rf_late_2.fit(X, y)
 
 # Predict for Stage 1
 df = pd.read_csv(r'../stage 1/same_season_test_data.csv')
+ans = pd.read_csv(r'../stage 1/same_season_test_label.csv')
 categorical_columns = df.select_dtypes(include=['object']).columns
 categorical_columns = categorical_columns.drop('is_night_game')
 # Apply the same encoding to test data
@@ -83,54 +82,58 @@ for col in categorical_columns:
     df[col] = df[col].map({value: idx for idx, value in enumerate(encodings[col])})
 X_test = df.drop(columns=['id']).values
 # Predict and evaluate
-y_pred_late = rf_late_1.predict(X_test)
-y_pred_tscv = rf_late_2.predict(X_test)
+y_pred_tscv = rf_tscv.predict(X_test)
+y_ans = ans["home_team_win"].replace({True: 1, False: 0}).values
+acc_tscv = accuracy_score(y_ans, y_pred_tscv)
+print(1 - acc_tscv)
 
-if not os.path.exists(r'../stage 1/submissions'):
-    os.makedirs(r'../stage 1/submissions')
+# if not os.path.exists(r'../stage 1/submissions'):
+#     os.makedirs(r'../stage 1/submissions')
 
-with open(f'../stage 1/submissions/RF-late.csv', 'w') as f:
-    f.write("id,home_team_win\n")
-    for index, y_pred in enumerate(y_pred_late):
-        if(y_pred == 1):
-            f.write(str(index) + ",True\n")
-        else:
-            f.write(str(index) + ",False\n")
+# with open(f'../stage 1/submissions/RF-late.csv', 'w') as f:
+#     f.write("id,home_team_win\n")
+#     for index, y_pred in enumerate(y_pred_late):
+#         if(y_pred == 1):
+#             f.write(str(index) + ",True\n")
+#         else:
+#             f.write(str(index) + ",False\n")
 
-with open(f'../stage 1/submissions/RF-tscv.csv', 'w') as f:
-    f.write("id,home_team_win\n")
-    for index, y_pred in enumerate(y_pred_tscv):
-        if(y_pred == 1):
-            f.write(str(index) + ",True\n")
-        else:
-            f.write(str(index) + ",False\n")
+# with open(f'../stage 1/submissions/RF-tscv.csv', 'w') as f:
+#     f.write("id,home_team_win\n")
+#     for index, y_pred in enumerate(y_pred_tscv):
+#         if(y_pred == 1):
+#             f.write(str(index) + ",True\n")
+#         else:
+#             f.write(str(index) + ",False\n")
 
 # Predict for Stage 2
 df = pd.read_csv(r'../stage 2/2024_test_data.csv')
-
+ans = pd.read_csv(r'../stage 2/2024_test_label.csv')
 # Apply the same encoding to test data
 for col in categorical_columns:
     df[col] = df[col].map({value: idx for idx, value in enumerate(encodings[col])})
 X_test = df.drop(columns=['id']).values
 # Predict and evaluate
-y_pred_late = rf_late_2.predict(X_test)
-y_pred_tscv = y_pred_late
+y_pred_tscv = rf_tscv.predict(X_test)
+y_ans = ans["home_team_win"].replace({True: 1, False: 0}).values
+acc_tscv = accuracy_score(y_ans, y_pred_tscv)
+print(1 - acc_tscv)
 
-if not os.path.exists(r'../stage 2/submissions'):
-    os.makedirs(r'../stage 2/submissions')
+# if not os.path.exists(r'../stage 2/submissions'):
+#     os.makedirs(r'../stage 2/submissions')
 
-with open(f'../stage 2/submissions/RF-late.csv', 'w') as f:
-    f.write("id,home_team_win\n")
-    for index, y_pred in enumerate(y_pred_late):
-        if(y_pred == 1):
-            f.write(str(index) + ",True\n")
-        else:
-            f.write(str(index) + ",False\n")
+# with open(f'../stage 2/submissions/RF-late.csv', 'w') as f:
+#     f.write("id,home_team_win\n")
+#     for index, y_pred in enumerate(y_pred_late):
+#         if(y_pred == 1):
+#             f.write(str(index) + ",True\n")
+#         else:
+#             f.write(str(index) + ",False\n")
 
-with open(f'../stage 2/submissions/RF-tscv.csv', 'w') as f:
-    f.write("id,home_team_win\n")
-    for index, y_pred in enumerate(y_pred_tscv):
-        if(y_pred == 1):
-            f.write(str(index) + ",True\n")
-        else:
-            f.write(str(index) + ",False\n")
+# with open(f'../stage 2/submissions/RF-tscv.csv', 'w') as f:
+#     f.write("id,home_team_win\n")
+#     for index, y_pred in enumerate(y_pred_tscv):
+#         if(y_pred == 1):
+#             f.write(str(index) + ",True\n")
+#         else:
+#             f.write(str(index) + ",False\n")
