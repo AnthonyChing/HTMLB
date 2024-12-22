@@ -6,7 +6,6 @@ from joblib import Parallel, delayed
 # Load data
 df = pd.read_csv('../uranus/preprocessing/undropped_train.csv')
 
-# Fill categorical columns with "Unknown"
 categorical_columns = df.select_dtypes(include=['object']).columns
 categorical_columns = categorical_columns.drop('is_night_game')
 
@@ -43,27 +42,26 @@ y_train_2 = train_data_2['home_team_win'].values  # Target
 X_val_2 = val_data_2.drop(columns=['home_team_win', 'date', 'id']).values  # Features
 y_val_2 = val_data_2['home_team_win'].values  # Target
 
-n_estimators = 10000
-max_features = ['sqrt']
-max_depth = [10, 15]
-min_samples_split = [5, 10]
-min_samples_leaf = [2, 4]
-params_list = [{"n_estimators": n_estimators, 
+n_estimators = [100 * i for i in range(1, 11, 2)]
+max_features = ['sqrt', 'log2', None]
+max_depth = [10, 15, None]
+params_list = [{"n_estimators": estimators, 
                 "max_features": features, 
-                "max_depth": depth, 
-                "min_samples_split": samples_split, 
-                "min_samples_leaf": samples_leaf}
+                "max_depth": depth}
+                for estimators in n_estimators 
                 for features in max_features 
-                for depth in max_depth 
-                for samples_split in min_samples_split
-                for samples_leaf in min_samples_leaf]
+                for depth in max_depth]
+
+def toString(params):
+    return (str(params["n_estimators"]) + " " +
+            str(params["max_features"]) + " " +
+            str(params["max_depth"]) + " ")
 
 def calc(params):
     rf = RandomForestClassifier(n_estimators=params["n_estimators"], 
                                 max_features=params["max_features"],
                                 max_depth=params["max_depth"],
-                                min_samples_split=params["min_samples_split"],
-                                min_samples_leaf=params["min_samples_leaf"],
+                                oob_score=True,
                                 random_state=1126)
 
     # Train the model
@@ -76,12 +74,7 @@ def calc(params):
     # Add accuracy to params dictionary
     params["accuracy"] = accuracy
 
-    print(params["n_estimators"],
-          params["max_features"], 
-          params["max_depth"], 
-          params["min_samples_split"], 
-          params["min_samples_leaf"],
-          accuracy)
+    print(toString(params) + str(accuracy))
     
     return params
 
@@ -92,39 +85,21 @@ for param in params_list:
     param["y_val"] = y_val_1
 results = Parallel(n_jobs=-1)(delayed(calc)(params) for params in params_list)
 
-f = open(f'RF-search-late-stage1-grid.txt', 'w')
-sorted_results = sorted(
-    results,
-    key=lambda x: (
-        x["n_estimators"],
-        x["max_features"],
-        x["max_depth"],
-        x["min_samples_split"],
-        x["min_samples_leaf"]
+max_features_priority = {"sqrt": 1, "log2": 2, None: 3}
+with open(f'RF-search-late-stage1-grid-less.txt', 'w') as f:
+    sorted_results = sorted(
+        results,
+        key=lambda x: (
+            x["n_estimators"],
+            max_features_priority.get(x["max_features"], float('inf')),
+            x["max_depth"] if x["max_depth"] is not None else 0
+        )
     )
-)
-for result in sorted_results:
-    f.write(str(result["n_estimators"]) + " " +
-        str(result["max_features"]) + " " +
-        str(result["max_depth"]) + " " +
-        str(result["min_samples_split"]) + " " +
-        str(result["min_samples_leaf"]) + " " +
-        str(result["accuracy"]) + "\n")
-max_result = max(sorted_results, key=lambda x: x["accuracy"])
-f.write(str(max_result["n_estimators"]) + " " +
-        str(max_result["max_features"]) + " " +
-        str(max_result["max_depth"]) + " " +
-        str(max_result["min_samples_split"]) + " " +
-        str(max_result["min_samples_leaf"]) + " " +
-        str(max_result["accuracy"]) + "\n")
-print("Stage 1 Optimal: " +
-        str(max_result["n_estimators"]) + " " +
-        str(max_result["max_features"]) + " " +
-        str(max_result["max_depth"]) + " " +
-        str(max_result["min_samples_split"]) + " " +
-        str(max_result["min_samples_leaf"]) + " " +
-        str(max_result["accuracy"]) + "\n")
-f.close()
+    for result in sorted_results:
+        f.write(toString(result) + " " + result["accuracy"] + "\n")
+    max_result = max(sorted_results, key=lambda x: x["accuracy"])
+    f.write(toString(max_result) + " " + max_result["accuracy"] + "\n")
+    print("Stage 1 Optimal: " + toString(max_result) + " " + max_result["accuracy"])
 
 for param in params_list:
     param["X_train"] = X_train_2
@@ -133,36 +108,17 @@ for param in params_list:
     param["y_val"] = y_val_2
 results = Parallel(n_jobs=-1)(delayed(calc)(params) for params in params_list)
 
-f = open(f'RF-search-late-stage2-grid.txt', 'w')
-sorted_results = sorted(
-    results,
-    key=lambda x: (
-        x["n_estimators"],
-        x["max_features"],
-        x["max_depth"],
-        x["min_samples_split"],
-        x["min_samples_leaf"]
+with open(f'RF-search-late-stage2-grid-less.txt', 'w') as f:
+    sorted_results = sorted(
+        results,
+        key=lambda x: (
+            x["n_estimators"],
+            max_features_priority.get(x["max_features"], float('inf')),
+            x["max_depth"] if x["max_depth"] is not None else 0
+        )
     )
-)
-for result in sorted_results:
-    f.write(str(result["n_estimators"]) + " " +
-        str(result["max_features"]) + " " +
-        str(result["max_depth"]) + " " +
-        str(result["min_samples_split"]) + " " +
-        str(result["min_samples_leaf"]) + " " +
-        str(result["accuracy"]) + "\n")
-max_result = max(sorted_results, key=lambda x: x["accuracy"])
-f.write(str(max_result["n_estimators"]) + " " +
-        str(max_result["max_features"]) + " " +
-        str(max_result["max_depth"]) + " " +
-        str(max_result["min_samples_split"]) + " " +
-        str(max_result["min_samples_leaf"]) + " " +
-        str(max_result["accuracy"]) + "\n")
-print("Stage 2 Optimal: " +
-        str(max_result["n_estimators"]) + " " +
-        str(max_result["max_features"]) + " " +
-        str(max_result["max_depth"]) + " " +
-        str(max_result["min_samples_split"]) + " " +
-        str(max_result["min_samples_leaf"]) + " " +
-        str(max_result["accuracy"]) + "\n")
-f.close()
+    for result in sorted_results:
+        f.write(toString(result) + " " + result["accuracy"] + "\n")
+    max_result = max(sorted_results, key=lambda x: x["accuracy"])
+    f.write(toString(max_result) + " " + max_result["accuracy"] + "\n")
+    print("Stage 2 Optimal: " + toString(max_result) + " " + max_result["accuracy"])
