@@ -12,4 +12,4 @@ importance = dict(sorted(importance.items(), key=lambda item: item[1]))
 with open('importance.txt', 'w') as f:
     for key, values in importance.items():
         print(key, values)
-        f.write(str(key) + " " + str(values) + "\n")
+        f.write(str(key) + ": " + str(values) + "\n")
