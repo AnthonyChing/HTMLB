@@ -100,7 +100,7 @@ with open(f'RF-search-late-stage1-grid-less.txt', 'w') as f:
     max_result = max(sorted_results, key=lambda x: x["accuracy"])
     f.write(toString(max_result) + " " + str(max_result["accuracy"]) + "\n")
     print("Stage 1 Optimal: " + toString(max_result) + " " + str(max_result["accuracy"]))
-
+# Stage 1 Optimal: 700 sqrt 15  0.5606166783461808
 for param in params_list:
     param["X_train"] = X_train_2
     param["y_train"] = y_train_2
@@ -118,7 +118,8 @@ with open(f'RF-search-late-stage2-grid-less.txt', 'w') as f:
         )
     )
     for result in sorted_results:
-        f.write(toString(result) + " " + result["accuracy"] + "\n")
+        f.write(toString(result) + " " + str(result["accuracy"]) + "\n")
     max_result = max(sorted_results, key=lambda x: x["accuracy"])
-    f.write(toString(max_result) + " " + max_result["accuracy"] + "\n")
-    print("Stage 2 Optimal: " + toString(max_result) + " " + max_result["accuracy"])
+    f.write(toString(max_result) + " " + str(max_result["accuracy"]) + "\n")
+    print("Stage 2 Optimal: " + toString(max_result) + " " + str(max_result["accuracy"]))
+# Stage 2 Optimal: 300 log2 10  0.5597996242955542
