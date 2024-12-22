@@ -38,7 +38,7 @@ for i in range(4):
     y_train_tscv.append(y_train)
     y_val_tscv.append(y_val)
 
-n_estimators = [100 * i for i in range(1, 3, 2)]
+n_estimators = [100 * i for i in range(1, 11, 2)]
 max_features = ['sqrt', 'log2', None]
 max_depth = [10, 15, None]
 params_list = [{"n_estimators": estimators, 
