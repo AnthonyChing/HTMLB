@@ -34,13 +34,13 @@ rf_late_2 = RandomForestClassifier(n_estimators=10000,
                             random_state=1126)
 rf_late_2.fit(X, y)
 
-rf_tscv = RandomForestClassifier(n_estimators=10000, 
-                            max_features='sqrt',
-                            max_depth=10,
-                            min_samples_split=5,
-                            min_samples_leaf=4,
-                            random_state=1126)
-rf_tscv.fit(X, y)
+# rf_tscv = RandomForestClassifier(n_estimators=10000, 
+#                             max_features='sqrt',
+#                             max_depth=10,
+#                             min_samples_split=5,
+#                             min_samples_leaf=4,
+#                             random_state=1126)
+# rf_tscv.fit(X, y)
 
 # Define parameter grid
 # param_grid = {
@@ -76,19 +76,21 @@ rf_tscv.fit(X, y)
 
 # Predict for Stage 1
 df = pd.read_csv(r'../stage 1/same_season_test_data.csv')
-
+categorical_columns = df.select_dtypes(include=['object']).columns
+categorical_columns = categorical_columns.drop('is_night_game')
 # Apply the same encoding to test data
 for col in categorical_columns:
     df[col] = df[col].map({value: idx for idx, value in enumerate(encodings[col])})
 X_test = df.drop(columns=['id']).values
 # Predict and evaluate
 y_pred_late = rf_late_1.predict(X_test)
-y_pred_tscv = rf_tscv.predict(X_test)
+y_pred_tscv = rf_late_2.predict(X_test)
 
 if not os.path.exists(r'../stage 1/submissions'):
     os.makedirs(r'../stage 1/submissions')
 
 with open(f'../stage 1/submissions/RF-late.csv', 'w') as f:
+    f.write("id,home_team_win\n")
     for index, y_pred in enumerate(y_pred_late):
         if(y_pred == 1):
             f.write(str(index) + ",True\n")
@@ -96,6 +98,7 @@ with open(f'../stage 1/submissions/RF-late.csv', 'w') as f:
             f.write(str(index) + ",False\n")
 
 with open(f'../stage 1/submissions/RF-tscv.csv', 'w') as f:
+    f.write("id,home_team_win\n")
     for index, y_pred in enumerate(y_pred_tscv):
         if(y_pred == 1):
             f.write(str(index) + ",True\n")
@@ -111,12 +114,13 @@ for col in categorical_columns:
 X_test = df.drop(columns=['id']).values
 # Predict and evaluate
 y_pred_late = rf_late_2.predict(X_test)
-y_pred_tscv = rf_tscv.predict(X_test)
+y_pred_tscv = y_pred_late
 
 if not os.path.exists(r'../stage 2/submissions'):
     os.makedirs(r'../stage 2/submissions')
 
 with open(f'../stage 2/submissions/RF-late.csv', 'w') as f:
+    f.write("id,home_team_win\n")
     for index, y_pred in enumerate(y_pred_late):
         if(y_pred == 1):
             f.write(str(index) + ",True\n")
@@ -124,6 +128,7 @@ with open(f'../stage 2/submissions/RF-late.csv', 'w') as f:
             f.write(str(index) + ",False\n")
 
 with open(f'../stage 2/submissions/RF-tscv.csv', 'w') as f:
+    f.write("id,home_team_win\n")
     for index, y_pred in enumerate(y_pred_tscv):
         if(y_pred == 1):
             f.write(str(index) + ",True\n")
