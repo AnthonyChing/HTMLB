@@ -29,7 +29,7 @@
 
     Note: `eval_ing.py` is for evaluating $E_{isnightgame}$
 
-* **SVM_LGval.py/SVM_TSCV.py:**
+* **SVM_LGval.py/SVM_TSCV.py:**  
     Code for training SVM with Late game validation/time series cross validation, all data paths reference to a `data` directory, change first code cell paths to reference correct path.  
     Second code cell is for selecting stage.  
 
