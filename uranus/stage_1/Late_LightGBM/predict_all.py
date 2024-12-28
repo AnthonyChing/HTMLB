@@ -7,7 +7,7 @@ def main():
     # Directory containing the model files
     model_directory = './models'
     predict_path = '../../preprocessing/undropped_train.csv'
-    true_labels_file = 'same_season_test_label.csv'
+    true_labels_file = '../../../stage 1/same_season_test_label.csv'
     eout_file = 'Eout.txt'
 
     # Get all .pkl files in the directory
@@ -84,9 +84,9 @@ def calculate_e_out(predictions_file, true_labels_file):
         y_pred = merged['home_team_win_pred'].astype(bool)
         y_true = merged['home_team_win_true'].astype(bool)
 
-        # Calculate E_out (accuracy)
-        e_out_accuracy = np.mean(y_pred == y_true)
-        return e_out_accuracy
+        # Calculate E_out
+        e_out = np.mean(y_pred != y_true)
+        return e_out
     except Exception as e:
         print(f"Error calculating E_out: {e}")
         return 0

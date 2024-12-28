@@ -146,7 +146,7 @@ def train_model(X_train, y_train, X_late, y_late, X, y, params, model_dir, ein_f
     y_train_pred = (y_train_pred_prob >= Threshold).astype(int)
 
     # Calculate E_in Metrics
-    ein_train_accuracy = np.mean(y_train_pred == y_train)  # Accuracy calculation
+    ein_train_accuracy = np.mean(y_train_pred != y_train)  # Accuracy calculation
     print(f"E_train_in Accuracy: {ein_train_accuracy:.5f}")
 
     # Predict on Validation Set
@@ -154,8 +154,8 @@ def train_model(X_train, y_train, X_late, y_late, X, y, params, model_dir, ein_f
     y_late_pred_prob = gbm.predict(X_late, num_iteration=gbm.best_iteration)
     y_late_pred = (y_late_pred_prob >= Threshold).astype(int)
 
-    # Calculate E_in Metrics
-    ein_late_accuracy = np.mean(y_late_pred == y_late)  # Accuracy calculation
+    # Calculate E_val Metrics
+    ein_late_accuracy = np.mean(y_late_pred != y_late)  # Accuracy calculation
     print(f"E_late_in Accuracy: {ein_late_accuracy:.5f}")
 
     with open(ein_file, 'a') as f:

@@ -137,8 +137,8 @@ def train_model(X_train, y_train, X_late, y_late, X, y, params, model_dir, elate
     y_train_pred = (y_train_pred_prob >= Threshold).astype(int)
 
     # Calculate E_in Metrics
-    elate_train_accuracy = np.mean(y_train_pred == y_train)  # Accuracy calculation
-    print(f"E_train_in Accuracy: {elate_train_accuracy:.5f}")
+    elate_train = 1 - np.mean(y_train_pred == y_train)  # calculation
+    print(f"E_train: {elate_train:.5f}")
 
     # Predict on Validation Set
     print("Predicting on validation set...")
@@ -146,8 +146,8 @@ def train_model(X_train, y_train, X_late, y_late, X, y, params, model_dir, elate
     y_late_pred = (y_late_pred_prob >= Threshold).astype(int)
 
     # Calculate E_in Metrics
-    elate_accuracy = np.mean(y_late_pred == y_late)  # Accuracy calculation
-    print(f"E_late_in Accuracy: {elate_accuracy:.5f}")
+    elate = 1 - np.mean(y_late_pred == y_late)  # calculation
+    print(f"E_late: {elate:.5f}")
 
     # **Save the Model as a Pickle File**
     model_filename = "_".join([f"{k}={v}" for k, v in params.items() if k != 'verbose']) + ".pkl"
@@ -157,9 +157,9 @@ def train_model(X_train, y_train, X_late, y_late, X, y, params, model_dir, elate
     print(f"Model saved as pickle to '{model_path_pkl}'.")
 
     with open(elate_file, 'a') as f:
-        f.write(f"E_late Accuracy: {elate_accuracy:.4f}, Params: {params}\n")
+        f.write(f"E_late: {elate:.4f}, Params: {params}\n")
 
-    return elate_accuracy
+    return elate
 
 def main():
     # Prepare Data
@@ -174,7 +174,7 @@ def main():
 
     # Clear or initialize Elate.txt
     with open(elate_file, 'w') as f:
-        f.write("E_late Accuracy Log:\n")
+        f.write("E_late Log:\n")
 
     # Define parameter grid
     param_grid = {

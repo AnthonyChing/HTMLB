@@ -74,7 +74,7 @@ def train_model(X, y, params, model_dir, ein_file):
     y_full_pred = (y_full_pred_prob >= 0.5).astype(int)
 
     # Calculate E_in Metrics
-    ein_accuracy = np.mean(y_full_pred == y)  # Accuracy calculation
+    ein_accuracy = np.mean(y_full_pred != y)  # Accuracy calculation
     print(f"E_in Accuracy: {ein_accuracy:.4f}")
 
     # **Save the Model as a Pickle File**
@@ -107,7 +107,7 @@ def main():
 
     # Define parameter grid
     param_grid = {
-        'n_estimators':[100, 200],
+        'n_estimators':[100, 200, 300],
         'learning_rate': [0.001],
         'num_leaves': [15],
         'feature_fraction': [0.6],

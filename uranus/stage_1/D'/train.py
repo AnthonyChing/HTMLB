@@ -79,8 +79,8 @@ def train_and_evaluate(X_train, y_train, X_val, y_val, params, model_name):
     E_in = accuracy_score(y_train, y_train_pred_binary)
     
     # Save model to tscv_models directory
-    os.makedirs("tscv_models", exist_ok=True)
-    model_path = os.path.join("tscv_models", f"{model_name}.pkl")
+    os.makedirs("D'_models", exist_ok=True)
+    model_path = os.path.join("D'_models", f"{model_name}.pkl")
     with open(model_path, "wb") as f:
         pickle.dump(gbm, f)
     
@@ -156,11 +156,11 @@ def main():
             total_E_in += weights[i] * E_in
 
         # Compute overall weighted accuracies
-        E_val = total_E_val / total_weight
-        E_in = total_E_in / total_weight
+        E_val = 1 - total_E_val / total_weight
+        E_in = 1 - total_E_in / total_weight
 
-        print(f" Weighted Validation Accuracy (Eval) for parameters {params}: {E_val:.4f}")
-        print(f" Weighted Training Accuracy (Ein) for parameters {params}: {E_in:.4f}")
+        print(f"Eval for parameters {params}: {E_val:.4f}")
+        print(f"Ein for parameters {params}: {E_in:.4f}")
         
         # Save the overall results to a log file
         with open("Results.txt", "a") as f:

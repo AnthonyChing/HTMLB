@@ -89,7 +89,7 @@ def calculate_e_out(predictions_file, true_labels_file):
         y_true = merged['is_night_game_true'].astype(bool)
 
         # Calculate E_out (accuracy)
-        e_out_accuracy = np.mean(y_pred == y_true)
+        e_out_accuracy = np.mean(y_pred != y_true)
         return e_out_accuracy
     except Exception as e:
         print(f"Error calculating E_out: {e}")

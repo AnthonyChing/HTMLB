@@ -142,11 +142,11 @@ def main():
             total_E_in += weights[i] * E_in
 
         # Compute overall weighted accuracies
-        overall_E_val = total_E_val / total_weight
-        overall_E_in = total_E_in / total_weight
+        overall_E_val = 1- total_E_val / total_weight
+        overall_E_in = 1- total_E_in / total_weight
 
-        print(f"Weighted Validation Accuracy (Eval) for parameters {params}: {overall_E_val:.4f}")
-        print(f"Weighted Training Accuracy (Ein) for parameters {params}: {overall_E_in:.4f}")
+        print(f"Weighted Eval for parameters {params}: {overall_E_val:.4f}")
+        print(f"Weighted Ein for parameters {params}: {overall_E_in:.4f}")
         
         # Save the overall results to a log file
         with open("Results.txt", "a") as f:

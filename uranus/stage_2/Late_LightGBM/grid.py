@@ -135,7 +135,7 @@ def train_model(X_train, y_train, X_late, y_late, X, y, params, model_dir, elate
     y_train_pred = (y_train_pred_prob >= Threshold).astype(int)
 
     # Calculate E_in Metrics
-    elate_train_accuracy = np.mean(y_train_pred == y_train)  # Accuracy calculation
+    elate_train_accuracy = np.mean(y_train_pred != y_train)  # Accuracy calculation
     print(f"E_train_in Accuracy: {elate_train_accuracy:.5f}")
 
     # Predict on Validation Set
@@ -144,7 +144,7 @@ def train_model(X_train, y_train, X_late, y_late, X, y, params, model_dir, elate
     y_late_pred = (y_late_pred_prob >= Threshold).astype(int)
 
     # Calculate E_in Metrics
-    elate_accuracy = np.mean(y_late_pred == y_late)  # Accuracy calculation
+    elate_accuracy = np.mean(y_late_pred != y_late)  # Accuracy calculation
     print(f"E_late_in Accuracy: {elate_accuracy:.5f}")
 
     # **Save the Model as a Pickle File**
