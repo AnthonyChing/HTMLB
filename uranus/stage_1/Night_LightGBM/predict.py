@@ -5,7 +5,7 @@ import numpy as np
 
 def main():
     # Directory containing the model files
-    model_directory = './'
+    model_directory = './models'
     predict_path = 'final_updated.csv'
     true_labels_file = '../../../Aaron/is_night_game/isnightgame_stage_1_label.csv'
     eout_file = 'Eout.txt'

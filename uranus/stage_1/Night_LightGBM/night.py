@@ -127,12 +127,6 @@ def train_model(X_train, y_train, X_late, y_late, X, y, params, model_dir, ein_f
     )
     print("Model training completed.")
 
-    # **Save the Model as a Pickle File**
-    model_path_pkl = 'model.pkl'
-    with open(model_path_pkl, 'wb') as f:
-        pickle.dump(gbm, f)
-    print(f"Model saved as pickle to '{model_path_pkl}'.")
-
     # **Make Predictions**
 
     Threshold = 0.5
@@ -158,6 +152,13 @@ def train_model(X_train, y_train, X_late, y_late, X, y, params, model_dir, ein_f
     with open(ein_file, 'a') as f:
         f.write(f"E_late Accuracy: {ein_late_accuracy:.4f}, Params: {params}\n")
 
+    # **Save the Model as a Pickle File**
+    model_filename = "_".join([f"{k}={v}" for k, v in params.items() if k != 'verbose']) + ".pkl"
+    model_path_pkl = os.path.join(model_dir, model_filename)
+    with open(model_path_pkl, 'wb') as f:
+        pickle.dump(gbm, f)
+    print(f"Model saved as pickle to '{model_path_pkl}'.")
+
     return ein_late_accuracy
 
 def main():
@@ -178,7 +179,7 @@ def main():
 
     # Define parameter grid
     param_grid = {
-        'num_boost_round': [100],
+        'num_boost_round': [100, 200],
         'learning_rate': [0.001],
         'num_leaves': [15],
         'feature_fraction': [0.6],
