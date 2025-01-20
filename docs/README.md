@@ -35,7 +35,7 @@ We sort the training data by date, then split it into 5 parts, then we build 4 t
 | train 3 |  |  | validation 3 |  |
 | train 4 |  |  |  | validation 4 |
 
-We use the following heuristic to calculate the final cross validation errors: $Acc_{TSCV}=(1*Acc_1+2*Acc_2+3*Acc_3+4*Acc_4)/10$ where $Acc_i$ are calculated with validation $i$, $i = 1, 2, 3, 4$
+We use the following heuristic to calculate the final cross validation errors: \$Acc_{TSCV}=(1*Acc_1+2*Acc_2+3*Acc_3+4*Acc_4)/10\$ where \$Acc_i\$ are calculated with validation \$i\$, \$i = 1, 2, 3, 4\$
 
 ## Logistic Regression
 
