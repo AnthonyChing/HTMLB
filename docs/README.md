@@ -5,7 +5,7 @@ Date: 2024/12/23
 
 ## Work Load
 
-Each team member studied on 1 machine learning algorithm and worked on the corresponding section in this report. The other sections are done together evenly. All members attended weekly meetings ([meeting minutes: https://hackmd.io/@StackSmasher/INGODSMEETING](https://hackmd.io/@StackSmasher/INGODSMEETING))
+Each team member studied on 1 machine learning algorithm and worked on the corresponding section in this report. The other sections are done together evenly. All members attended weekly meetings ([meeting minutes](./IN%20GOD'S%20MEETING.md))
 
 ## Preprocessing
 
@@ -35,7 +35,7 @@ We sort the training data by date, then split it into 5 parts, then we build 4 t
 | train 3 |  |  | validation 3 |  |
 | train 4 |  |  |  | validation 4 |
 
-We use the following heuristic to calculate the final cross validation errors:[![][image1]](https://www.codecogs.com/eqnedit.php?latex=Acc_%7BTSCV%7D%20%3D%20\(1%20%5Ctimes%20Acc_1%20%2B%202%20%5Ctimes%20Acc_2%20%2B%203%20%5Ctimes%20Acc_3%20%2B%204%20%5Ctimes%20Acc_4%20\)%2F10#0) where [![][image2]](https://www.codecogs.com/eqnedit.php?latex=Acc_i#0) are calculated with validation [![][image3]](https://www.codecogs.com/eqnedit.php?latex=i#0), [![][image4]](https://www.codecogs.com/eqnedit.php?latex=i%20%3D%201%2C%5C%202%2C%5C%203%2C%5C%204#0)
+We use the following heuristic to calculate the final cross validation errors: $Acc_{TSCV}=(1*Acc_1+2*Acc_2+3*Acc_3+4*Acc_4)/10$ where $Acc_i$ are calculated with validation $i$, $i = 1, 2, 3, 4$
 
 ## Logistic Regression
 
