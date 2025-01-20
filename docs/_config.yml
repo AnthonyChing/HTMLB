@@ -4,3 +4,6 @@ plugins:
 title: HTMLB
 description: HTML Final Project Report - IN GOD’S MIND
 show_downloads: true
+markdown: kramdown
+kramdown:
+  math_engine: mathjax

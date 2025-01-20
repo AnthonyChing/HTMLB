@@ -5,7 +5,7 @@ Date: 2024/12/23
 
 ## Work Load
 
-Each team member studied on 1 machine learning algorithm and worked on the corresponding section in this report. The other sections are done together evenly. All members attended weekly meetings ([meeting minutes](./IN%20GOD'S%20MEETING.md))
+Each team member studied on 1 machine learning algorithm and worked on the corresponding section in this report. The other sections are done together evenly. All members attended weekly meetings ([meeting minutes](./IN%20GOD'S%20MEETING.html))
 
 ## Preprocessing
 
